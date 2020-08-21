@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import "./index.scss"
 import { Spin, Button } from "antd"
 import LoginForm from "../../components/LoginForm"
-import { FBLogin } from "../../utils"
+import { FBLogin, LINELogin } from "../../utils"
 
 const formListData = [
   {
@@ -94,7 +94,7 @@ export default function Home() {
       return <>
         <LoginForm title="Sign In" formList={formList} onSubmit={onSubmit}></LoginForm>
         <Button block disabled={FBDisabled} onClick={loginToFB}>Sign in with Facebook</Button>
-        <Button block>Sign in with LINE</Button>
+        <Button block onClick={LINELogin}>Sign in with LINE</Button>
       </>
     }
     return <>

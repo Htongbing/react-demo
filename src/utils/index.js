@@ -1,3 +1,11 @@
+import { FBScriptUrl, LINELoginUrl } from "../const"
+
+export function encodeUrl(url, params = {}, sign = "?") {
+  const keys = Object.keys(params)
+  if (!keys.length) return url
+  return `${url}${url.includes(sign) ? "" : sign}${keys.map(key => `${key}=${window.encodeURIComponent(params[key])}`).join("&")}`
+}
+
 export function FBLogin() {
   const checkStatus = (resolve, reject, { status, authResponse }) => {
     status === "connected" ? resolve(authResponse) : reject(status)
@@ -20,11 +28,26 @@ export function FBLogin() {
     }
     const js = document.createElement("script")
     js.id = id
-    js.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&cookie=1&version=v8.0&autoLogAppEvents=1&appId=${process.env.REACT_APP_FB_APP_ID}`
+    js.src = encodeUrl(FBScriptUrl, {
+      xfbml: 1,
+      cookie: 1,
+      version: "v8.0",
+      appId: process.env.REACT_APP_FB_APP_ID
+    }, "#")
 
     js.addEventListener("load", () => resolve(getFB()))
     js.addEventListener("error", reject)
 
     document.body.appendChild(js)
+  })
+}
+
+export function LINELogin() {
+  window.location.href = encodeUrl(LINELoginUrl, {
+    response_type: "code",
+    client_id: process.env.REACT_APP_LINE_APP_ID,
+    redirect_uri: window.location.href,
+    state: 123,
+    scope: "profile openid email"
   })
 }
