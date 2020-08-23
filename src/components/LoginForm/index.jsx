@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import "./index.scss"
 import { Form, Input, Button } from "antd"
 import LabelInput from "../../components/LabelInput"
+import Username from "../../components/Username"
 
 function generateForm(formList) {
   return formList.map(input => {
@@ -35,7 +36,10 @@ export default function LoginForm(props) {
     <Form onFinish={onSubmit}>
       {generateForm(props.formList)}
       <Form.Item key="test" name="test">
-        <LabelInput></LabelInput>
+        <Username></Username>
+      </Form.Item>
+      <Form.Item key="test222" name="test222">
+        <LabelInput label="test"></LabelInput>
       </Form.Item>
       <Form.Item>
         <Button block type="primary" htmlType="submit" loading={loading}>
