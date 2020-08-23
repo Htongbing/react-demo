@@ -3,6 +3,7 @@ import LabelInput from "../LabelInput"
 import { Select } from "antd"
 
 const isPhoneReg = /^(\+\d+)-(\d+)$/
+const isNumber = /^\d+$/ 
 
 export default function Username(props) {
   const { value, onChange } = props
@@ -14,7 +15,7 @@ export default function Username(props) {
 
   const onChangeValue = (prefix, input) => {
     let value = input
-    if (isPhone) {
+    if (isNumber.test(input)) {
       value = `${prefix}-${input}`
     }
     onChange(value)
