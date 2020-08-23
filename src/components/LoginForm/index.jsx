@@ -32,9 +32,11 @@ export default function LoginForm(props) {
     <h1 className="title">
       {props.title}
     </h1>
-    <LabelInput></LabelInput>
     <Form onFinish={onSubmit}>
       {generateForm(props.formList)}
+      <Form.Item key="test" name="test">
+        <LabelInput></LabelInput>
+      </Form.Item>
       <Form.Item>
         <Button block type="primary" htmlType="submit" loading={loading}>
           {props.title}
