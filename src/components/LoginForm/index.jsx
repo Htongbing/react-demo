@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import "./index.scss"
 import { Form, Input, Button } from "antd"
+import LabelInput from "../../components/LabelInput"
 
 function generateForm(formList) {
   return formList.map(input => {
@@ -31,6 +32,7 @@ export default function LoginForm(props) {
     <h1 className="title">
       {props.title}
     </h1>
+    <LabelInput></LabelInput>
     <Form onFinish={onSubmit}>
       {generateForm(props.formList)}
       <Form.Item>
