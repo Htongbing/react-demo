@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import LabelInput from "../LabelInput"
 import { Select } from "antd"
 
@@ -8,11 +8,6 @@ const isNumber = /^\d+$/
 export default function Username(props) {
   const { value, onChange } = props
 
-  const initIsPhone = isPhoneReg.test(value)
-  const [isPhone, setIsPhone] = useState(initIsPhone)
-  const [phonePrefix, setPhonePrefix] = useState(initIsPhone ? RegExp.$1 : "+86")
-  const [inputValue, setInputValue] = useState(initIsPhone ? RegExp.$2 : value)
-
   const onChangeValue = (prefix, input) => {
     let value = input
     if (isNumber.test(input)) {
@@ -21,16 +16,15 @@ export default function Username(props) {
     onChange(value)
   }
 
-  useEffect(() => {
-    const isPhone = isPhoneReg.test(value)
-    setIsPhone(isPhone)
-    if (isPhone) {
-      setPhonePrefix(RegExp.$1)
-      setInputValue(RegExp.$2)
-      return
-    }
-    setInputValue(value)
-  }, [value])
+  const isPhone = isPhoneReg.test(value)
+
+  let inputValue = value
+  let phonePrefix = "+86"
+
+  if (isPhone) {
+    phonePrefix = RegExp.$1
+    inputValue = RegExp.$2
+  }
 
   return <div className="username-container">
     {isPhone && <Select value={phonePrefix} onChange={prefix => onChangeValue(prefix, inputValue)}>
