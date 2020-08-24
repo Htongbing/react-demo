@@ -1,8 +1,8 @@
 import React from "react"
 import LabelInput from "../LabelInput"
-import { Select } from "antd"
+import SelectDialCode from "../SelectDialCode"
 
-const isPhoneReg = /^(\+\d+)-(\d+)$/
+const isPhoneReg = /^([a-z]+\+\d+)-(\d+)$/i
 const isNumber = /^\d+$/ 
 
 export default function Username(props) {
@@ -19,7 +19,7 @@ export default function Username(props) {
   const isPhone = isPhoneReg.test(value)
 
   let inputValue = value
-  let phonePrefix = "+86"
+  let phonePrefix = "cn+86"
 
   if (isPhone) {
     phonePrefix = RegExp.$1
@@ -27,10 +27,7 @@ export default function Username(props) {
   }
 
   return <div className="username-container">
-    {isPhone && <Select value={phonePrefix} onChange={prefix => onChangeValue(prefix, inputValue)}>
-      <Select.Option value="+86">+86 中国</Select.Option>
-      <Select.Option value="+1">+1 美国</Select.Option>
-    </Select>}
+    {isPhone && <SelectDialCode value={phonePrefix} onChange={prefix => onChangeValue(prefix, inputValue)}></SelectDialCode>}
     <LabelInput label={isPhone ? "手机号" : "邮箱"} value={inputValue} onChange={ev => onChangeValue(phonePrefix, ev.target.value)}></LabelInput>
   </div>
 }
