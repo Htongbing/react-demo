@@ -1,0 +1,11 @@
+@import "../../assets/css/countries.scss";
+
+.select-dial-code-option {
+  display: flex;
+  align-items: center;
+
+  .name,
+  .value {
+    margin-left: 10px;
+  }
+}
